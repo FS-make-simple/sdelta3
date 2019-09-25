@@ -1,0 +1,68 @@
+    What is sdelta3?
+
+sdelta3 is a program similar to the programs "patch" and "diff".
+While "patch" is only for text files in directories
+sdelta3 accepts two files of any type.
+Then, it creates a delta or patch file.
+The delta describes the fewest amount of changes 
+required to transform the first file into the second file.
+
+
+    Why sdelta3?
+
+sdelta3 has one primary purpose.
+System administrators can download the miniscule 
+compressed sdelta3 patch files to update previously 
+downloaded source tarballs to current versions.
+Compressed sdelta3 patches are often 10% the size 
+of full new source tarball.
+Therefore, downloading, uncompressing, and applying
+sdelta3 patches are faster than downloading and
+uncompressing a full source tarballs.
+ 
+
+    How does sdelta3 work?
+
+sdelta3 attempts to find long matching sequences 
+of bytes that the two files share in common.
+It outputs references to the bytes that both files have in common.
+Finally, it outputs the byte sequences in the the second 
+file has which can not be matched in the first file.
+
+
+    How well does sdelta3 perform?
+
+sdelta3's overall efficiency on creating compressible
+patches of source tarballs is unmatched.
+However sdelta3's nearest competitor is bdelta.
+http://deltup.sunsite.dk/
+ 
+bdelta and sdelta3 use different aproaches for the task.
+sdelta3 is honed to the characteristics of textual files,
+such as source tarballs.
+bdelta uses a more generic whittling down algorithim
+that is insensitive to the characteristics of file type.
+
+In terms of speed sdelta3 tends to be faster than bdelta
+on small files, however on 100M+ files bdelta tends to
+be faster than sdelta3.
+Both bdelta and sdelta3 are incredibly 
+efficient and fast delta generators.
+
+I speculate that bdelta may be better than
+sdelta3 on non textual or binary data.
+However no comparisons between bdelta and
+sdelta3 on non source tarballs were done.
+
+Both bdelta and sdelta3 outperform xdelta, bsdiff
+and any other delta generator I could find.
+
+
+    Thank who?
+
+sdelta3 inherits from Kyle Sallee's sdelta which is an 
+original project that was not forked from any other project.
+sdelta3 was inspired in part by John Whitney's bdelta.
+bdelta produced better patches than sdelta, but required longer.
+sdelta was inspired by Joshua MacDonald's xdelta program.
+However bdelta is far more like xdelta than sdelta or sdelta3.

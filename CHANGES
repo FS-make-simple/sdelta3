@@ -1,0 +1,108 @@
+Thu Feb 16 20:35:09 UTC 2006    20060216    Kyle Sallee
+
+sd3 now passes environment variable $CSWIT
+as a command line parameter to compression
+programs when compressing tarballs.
+
+
+Mon Feb 13 21:54:36 UTC 2006    20060213    Kyle Sallee
+
+Added additional parameters for 7za to compress smaller.
+
+
+Tue Jan 17 15:19:46 UTC 2006    20060117    Pavel Gorshkov
+
+Improved make_to().
+Various cosmetic changes, mostly printf => fprintf(stderr
+Fixes for compilation warnings.
+
+
+Wed Jan 11 16:45:59 UTC 2006    no release yet  Pavel Gorshkov
+
+Removed the support for libmd (FreeBSD-only).
+For more info, see this thread:
+http://lists.freebsd.org/pipermail/freebsd-stable/2006-January/021421.html
+
+
+Tue Nov 15 17:35:01 UTC 2005    20051115    Kyle Sallee
+
+Fixes for compilation warnings.
+Turned off some slowing debugging counters.
+Modified default optimization from -O3 to -Os
+because it causes much faster patch generation
+by conserving memory.
+
+
+Thu Jul  7 00:02:26 UTC 2005    20050707    Kyle Sallee
+
+Berlios squeezed out the PPR by enforcing their 99M file system quota.
+The PPR now runs at http://ppr.aakin.net
+This release updates the client for the new server location.
+
+
+Mon Jun 27 22:47:34 UTC 2005    20050627    Kyle Sallee
+
+A new verion of file was released that
+identifies 7za archives with a different string.
+Therefore, sd3 was updated to recgonize both how
+the old and new versions of file report 7-zip archives.
+
+
+Wed Jun  1 05:40:29 UTC 2005    20050601    Kyle Sallee
+
+sdreq now checks for patches and optimally compressed
+source tarballs on both berlios's ftp and http servers.
+That way if the http server is down the ftp server can
+be checked to see if the desired file is already present.
+The PPR now only accepts requests for sd3 patch generation.
+
+
+Sun May 29 21:51:53 UTC 2005    20050529    Kyle Sallee
+
+The documentation now reflects sdelta3.
+Updated the sdreq client and sd3 wrapper.
+sd was renamed sd3.
+This release should be good for use with
+the PPR if I did not bug sd3 or sdreq.
+Finally, we can all enjoy the smaller
+7za compressed sdelta3 patches.
+
+Cron is still not running at berlios.
+Patches generation may take up to 24
+hours depending on whether I am
+manually running the server.
+
+
+Sat May 28 08:26:36 UTC 2005    no release yet  Kyle Sallee
+
+I implemented minor tuning to blocks.c and sdelta3.c
+that overall produces smaller compressed patches.
+Pavel Gorshkov added support for both gnutls 1.2.x and 1.0.x
+I modified the Makefiles to automatically compile and
+link sdelta3 with available libraries that it requires.
+Few modifications are left before sdelta3 is released.
+sdreq should be modified to automatically request and
+download 7za compressed sdelta3 patches.
+
+Unfortunately, patch production has been offline
+for at least 4 days if not more because berlios.de
+has neglected starting cron.
+Patch production is dependent on cron
+running and their http server working.
+Neither have been dependable recently.
+Anyone know a good home for the PPR?
+
+
+Sat May 21 07:06:35 UTC 2005    no release yet  Kyle Sallee
+
+This release introduces sdelta3.
+sdelta3 produces smaller compressed
+patches than sdelta and sdelta2.
+
+sdelta3 is less complex.
+sdelta3 does not use hashes nor CRC lists.
+Instead it combines the best technologies of
+sdelta and sdelta2 while eliminating the dubious overhead.
+sdelta3 demonstrates an effective delta generator
+can be created using only one sorted arrays of blocks
+in addition to the content of the files being compared.
