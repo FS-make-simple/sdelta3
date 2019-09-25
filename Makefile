@@ -2,9 +2,10 @@ CC      =  gcc
 PREFIX  = /usr
 CFLAGS  = -Os -pipe
 LDFLAGS = -Wl,-s
+PSRC    = src
 
-SRCS = blocks.c input.c sdelta3.c temp.c
-HDRS = blocks.h digest.h input.h sdelta3.h temp.h
+SRCS = $(PSRC)/blocks.c $(PSRC)/input.c $(PSRC)/sdelta3.c $(PSRC)/temp.c
+HDRS = $(PSRC)/blocks.h $(PSRC)/digest.h $(PSRC)/input.h $(PSRC)/sdelta3.h $(PSRC)/temp.h
 
 .PHONY: all install clean
 
