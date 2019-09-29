@@ -1,12 +1,12 @@
 #!/bin/bash
 
-###############################################################
-# sdreq is copyright 2005 by Kyle Sallee, All rights reserved #
-# sdreq is distributed under the SPL version 1.1              #
-###############################################################
+####################################################################
+# sdelta3req is copyright 2005 by Kyle Sallee, All rights reserved #
+# sdelta3req is distributed under the SPL version 1.1              #
+####################################################################
 
 load_config()  {
-  if    [     -x  ${SDREQ_CONFIG:=~/.sdreq/config}  ]
+  if    [     -x  ${SDREQ_CONFIG:=~/.config/sdelta3/sdelta3req.conf}  ]
   then         .  ${SDREQ_CONFIG}
         SDREQ_DIR=${SDREQ_CONFIG%/*}
   else  SDREQ_DIR=${SDREQ_CONFIG%/*}
@@ -75,7 +75,7 @@ config_menu()  {
   while
          OK=$"Select"
      CANCEL=$"Done"
-       HELP=$"Please configure how sdreq should function
+       HELP=$"Please configure how sdelta3req should function
 Upon completion of patch generation ppr@aakin.net 
 can send an email notifying pick up is ready.
 Patches can also be uploaded directly to a FTP server."
@@ -108,7 +108,7 @@ Patches can also be uploaded directly to a FTP server."
 config_text()  {
   local  COMMAND  OK  CANCEL  HELP
 
-    HELP=$"Please configure how sdreq should function
+    HELP=$"Please configure how sdelta3req should function
 Upon completion of patch generation ppr@aakin.net
 can send an email notifying pick up is ready.
 Patches can also be uploaded directly to a FTP server."
@@ -147,7 +147,7 @@ run_config()  {
 help() {
   echo  $"$COPYRIGHT"
   echo
-  echo  $"Usage: sdreq [command]"
+  echo  $"Usage: sdelta3req [command]"
   echo  $"Commands:"
   echo  $"want		request patches"
   echo  $"download	retrieve previously requested patches"
@@ -155,7 +155,7 @@ help() {
   echo  $"config		reconfigure sdreq"
   echo
   echo  $"Preparation is required before executing sdreq want."
-  echo  $"Please read /usr/share/sdelta3/sdreq_README first."
+  echo  $"Please read /usr/share/doc/sdelta3/README.req first."
 }
 
 
@@ -339,7 +339,7 @@ apply()  {
       TO="$(  list_empty   $SDREQ_DIR/want/  |
               grep   $TO                     |
               head  -n  1                    )"
-    if    sd3     "$SDREQ_DIR/have/$FROM"  "$SDREQ_DIR/received/$PATCH" \
+    if  sdelta3c  "$SDREQ_DIR/have/$FROM"  "$SDREQ_DIR/received/$PATCH" \
                   "$SDREQ_DIR/want/$TO"
     then  rm  -f                           "$SDREQ_DIR/received/$PATCH"
     else  rm  -f  "$SDREQ_DIR/want/$TO"    "$SDREQ_DIR/received/$PATCH"
@@ -351,12 +351,12 @@ apply()  {
   list   $SDREQ_DIR/received/      |
   grep   "\.tar\.7z$\|\.tar\.bz2$"  |
   while   read;  do
-    sd3   translate        "$SDREQ_DIR/received/$REPLY"  \
-                           "$SDREQ_DIR/want/$(
-           list_empty      "$SDREQ_DIR/want/"  |
-           grep   "${REPLY%.*}"               |
-           head  -n  1                        )"  &&
-    rm  -f                 "$SDREQ_DIR/received/$REPLY"
+    sdelta3c translate        "$SDREQ_DIR/received/$REPLY"  \
+                              "$SDREQ_DIR/want/$(
+              list_empty      "$SDREQ_DIR/want/"  |
+              grep   "${REPLY%.*}"               |
+              head  -n  1                        )"  &&
+    rm  -f                    "$SDREQ_DIR/received/$REPLY"
   done
 
   clean  $SDREQ_DIR/want  14
@@ -385,7 +385,7 @@ TAB="	"
 
 export  IFS="$TAB$LF"
 
-COPYRIGHT="sdreq by Kyle Sallee Copyright 2005, all rights reserved."
+COPYRIGHT="sdelta3req by Kyle Sallee Copyright 2005, all rights reserved."
 
 load_config
 comp_progs

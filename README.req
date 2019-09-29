@@ -1,15 +1,15 @@
-sdreq is a tool for requesting and applying sdelta patches
+sdelta3req is a tool for requesting and applying sdelta patches
 copyright by Kyle Sallee 2005, all rights reserved.
-sdreq is very simple and designed to be invoked by
+sdelta3req is very simple and designed to be invoked by
 command line and/or scripts to accomplish it's task
 without any human interaction.
 
-To use sdreq you will require installed:
+To use sdelta3req you will require installed:
 bash, bzip2 curl, coreutils, dialog, find, grep, gzip, p7zip, and sed.
 
 bzip2 p7zip and gzip are compression programs.
 curl is the download agent.
-The rest are utilities used by the sd and sdreq shell script.
+The rest are utilities used by the sd and sdelta3req shell script.
 
 p7zip is a compression program that can frequently produce
 tarballs that are compressed 30% smaller than bzip2.
@@ -19,7 +19,7 @@ compressed with 7za from p7zip or bzip2.
 Therefore, you must have both installed to 
 have tarballs and patches decompressed.
 
-The first time sdreq is run it will bring you to a configuration menu.
+The first time sdelta3req is run it will bring you to a configuration menu.
 The configuration menu allows certain features
 to be enabled or disabled for all runs.
 The two features currently supported are
@@ -33,36 +33,36 @@ Even better than that you can request that the
 service email the patches to your ftp server
 so that they need not be downloaded.
 Should you ever want to re-run the configuration
-invoke sdreq with parameter config.
+invoke sdelta3req with parameter config.
 
-After configuration is run sdreq will create the file:
-~/.sdreq/config
+After configuration is run sdelta3req will create the file:
+~/.config/sdelta3/sdelta3req.conf
 
 and directories:
-~/.sdreq/have       contains source tarballs that you have
-~/.sdreq/log        contains logs for all sdelta requests
-~/.sdreq/sd         contains download sdelta patches
-~/.sdreq/tmp        contains temporary files created while sdreq runs
-~/.sdreq/waiting    contains desired but empty sdelta patch files
-~/.sdreq/want       contains empty source tarballs that are wanted
+~/.config/sdelta3/have       contains source tarballs that you have
+~/.config/sdelta3/log        contains logs for all sdelta requests
+~/.config/sdelta3/sd         contains download sdelta patches
+~/.config/sdelta3/tmp        contains temporary files created while sdelta3req runs
+~/.config/sdelta3/waiting    contains desired but empty sdelta patch files
+~/.config/sdelta3/want       contains empty source tarballs that are wanted
 
 The first useful one time preparation may be to delete
-~/.sdreq/have and symbolic link it to where you keep source tarballs.
+~/.config/sdelta3/have and symbolic link it to where you keep source tarballs.
 For example if you store sources in /var/cache/source you might issue:
-$ rm  -f                      ~/.sdreq/have
-$ ln  -s  /var/cache/sources  ~/.sdreq/have
+$ rm  -f                      ~/.config/sdelta3/have
+$ ln  -s  /var/cache/sources  ~/.config/sdelta3/have
 Sources tarballs may be 7za, bzip2, gzip or uncompressed.
 They may be directly within that directory or within sub directories.
 
-sdreq will now be able to figure out what you have.
+sdelta3req will now be able to figure out what you have.
 Still it needs to be told what you want.
 
 The want directory and have directory can be the same if
 you want the new sources stored where the old sources are:
 For this example I will assume that you issue the commands:
 
-$ rm  -f                      ~/.sdreq/want
-$ ln  -s  /var/cache/sources  ~/.sdreq/want
+$ rm  -f                      ~/.config/sdelta3/want
+$ ln  -s  /var/cache/sources  ~/.config/sdelta3/want
 
 Let us assume that you have:
 dialog/1.0-20041222/dialog-1.0-20041222.tar.bz2
@@ -71,21 +71,21 @@ dialog/1.0-20050116/dialog-1.0-20050116.tar.bz2
 
 issue:
 
-$ mkdir  -p  ~/.sdreq/want/dialog/1.0-20050116
-$ touch      ~/.sdreq/want/dialog/1.0-20050116/dialog-1.0-20050116.tar.bz2
+$ mkdir  -p  ~/.config/sdelta3/want/dialog/1.0-20050116
+$ touch      ~/.config/sdelta3/want/dialog/1.0-20050116/dialog-1.0-20050116.tar.bz2
 or
-$ touch      ~/.sdreq/want/dialog-1.0-20050116.tar.bz2
+$ touch      ~/.config/sdelta3/want/dialog-1.0-20050116.tar.bz2
 
 Now there is an empty file within the want directory.
 Make as many empty files with the names of the source
 tarballs that you want.
 
-sdreq will now know what you want.
-sdreq should be able to figure out 
+sdelta3req will now know what you want.
+sdelta3req should be able to figure out 
 what sdelta to request if you have
 a previous source version available.
 Now make the request:
-$ sdreq  want
+$ sdelta3req  want
 It just uploaded a list of the sdelta patches
 that you will require to the Public Patch Repository, PPR.
 
@@ -95,25 +95,25 @@ Once you receive an email you will know they are ready for pickup.
 If you elect not to receive email notification then you will
 need to wait a while before attempting to download the patches.
 Once you are ready to download them issue:
-$ sdreq  download
+$ sdelta3req  download
 
-The required and available patches should now be in ~/sdreq/sd
+The required and available patches should now be in ~/sdelta3req/sd
 Now you need only to apply the patches to gain the new sources
 by issuing the command:
-$ sdreq  apply
+$ sdelta3req  apply
 
-The above command will remove patches from ~/sdreq/sd
+The above command will remove patches from ~/.config/sdelta3/sd
 so if you want them saved you should copy or hard link
-the content of ~/sdreq/sd elsewhere before applying.
-Where once empty files existed within ~/sdreq/want
+the content of ~/.config/sdelta3/sd elsewhere before applying.
+Where once empty files existed within ~/.config/sdelta3/want
 now there are the source tarballs and for far less
 bytes downloaded than full source tarballs.
 
 In review the 4 step process for gaining new source tarballs is:
 1.  Touch the file names for the sources that you want.
-2.  Issue:  sdreq  want
-3.  Issue:  sdreq  download
-4.  Issue:  sdreq  apply
+2.  Issue:  sdelta3req  want
+3.  Issue:  sdelta3req  download
+4.  Issue:  sdelta3req  apply
 
 
             Q and A
@@ -149,13 +149,13 @@ A. The generated have source tarballs can be compressed or uncompressed.
    Ending in .tar would apply no    compression.
 
 
-Q. When can I remove the content of ~/.sdreq/tmp?
+Q. When can I remove the content of ~/.config/sdelta3/tmp?
 
-A. While unnecessary to clean ~/.sdreq/tmp you may do so
-   before invoking sdreq want, but do not clean it 
+A. While unnecessary to clean ~/.config/sdelta3/tmp you may do so
+   before invoking sdelta3req want, but do not clean it 
    in between want download and apply.
    The directories are not created if removed.
-   If you remove ~/sdreq/tmp then you broke it.
+   If you remove ~/.config/sdelta3/tmp then you broke it.
    Fix it.
 
 
@@ -164,12 +164,12 @@ Q. A file I want can not have a sdelta patch generated for it.
 
 A. Yes.  However if older than 14 days it will be removed automatically.
    This keeps the PPR from forever trying to create a patch that it can
-   not create each time your box executes sdreq want.
+   not create each time your box executes sdelta3req want.
 
 
-Q. sdreq sometimes times out or waits forever while downloading patches.
+Q. sdelta3req sometimes times out or waits forever while downloading patches.
 
-A. sdreq uses curl as it's download agent.
+A. sdelta3req uses curl as it's download agent.
    The behavior of curl can be adjusted using
    a ~/.curlrc file.
    The command man curl will provide useful documentation.
@@ -179,16 +179,16 @@ A. sdreq uses curl as it's download agent.
 
 Q. I am having more aborts than successes with curl downloading.
 
-A. Try adding more than one line in the script that invokes: sdreq download
+A. Try adding more than one line in the script that invokes: sdelta3req download
    That way previously broken file transfers can be resumed.
 
 
 Q. I wanted to upgrade from bash-3.0.tar.bz2 to bash-3.1.tar.bz2
-   but sdreq choose bash-completition-20050121.tar.bz2 for the have file.
+   but sdelta3req choose bash-completition-20050121.tar.bz2 for the have file.
    That is not right.  How can I make it work properly.
 
-A. sdreq will order potential matches of from files by name and time.
-   sdreq does not know that "completition-20050121" is not a version
+A. sdelta3req will order potential matches of from files by name and time.
+   sdelta3req does not know that "completition-20050121" is not a version
    number for bash and not an entirely different source tarball.
    However if you touch the have source tarball bash-3.0.tar.bz2
    it will become newer than bash-completition-20050121 and be
@@ -198,7 +198,7 @@ A. sdreq will order potential matches of from files by name and time.
 
 Q. I am a distribution maintainer.
    I want my distribution to provide software upgrade patches.
-   How can I use the PPR and sdreq to accomplish this?
+   How can I use the PPR and sdelta3req to accomplish this?
 
 A. First, have a ftp server configured to receive uploads of sdelta patches.
    Your servers will host downloads of upgrade patches.
@@ -261,6 +261,6 @@ A. If your client operates in a sane fashion according
    will receive a warning if possible and then be
    disabled or denied service if the problem persists.
 
-   You may not copy any code from sdreq to use in your client.
-   sdreq is under the Sorcerer Public License.
+   You may not copy any code from sdelta3req to use in your client.
+   sdelta3req is under the Sorcerer Public License.
    Please email improvements or suggestions to kyle.sallee@gmail.com

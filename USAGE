@@ -12,7 +12,7 @@ sd3 automatically detects the extentions:
 Therefore, each parameter passed to sd3
 should have one of the extentions listed above.
 
-sd3 has the following requirements:
+sdelta3c has the following requirements:
 openssl, bash >= 3.0, file >= 4.10, 7za, bzip2, gzip and sdelta3.
 Programs must be installed and within the PATH.
 
@@ -24,18 +24,18 @@ The destination box has only:   gcc-3.4.1.tar.bz2
 
 First, create a sdelta3 patch file.
 
-$ sd3  gcc-3.4.1.tar.bz2  gcc-3.4.3.tar.bz2  gcc-3.4.1-gcc-3.4.3.sd3.7z
+$ sdelta3c  gcc-3.4.1.tar.bz2  gcc-3.4.3.tar.bz2  gcc-3.4.1-gcc-3.4.3.sd3.7z
 
 Next, send gcc-3.4.1-gcc-3.4.3.sd.7z to the destination box.
 Finally, run sd3 to apply the patch and generate the desired file.
 
-$ sd3  gcc-3.4.1.tar.bz2  gcc-3.4.1-gcc-3.4.3.sd3.7z  gcc-3.4.3.tar
+$ sdelta3c  gcc-3.4.1.tar.bz2  gcc-3.4.1-gcc-3.4.3.sd3.7z  gcc-3.4.3.tar
 
 Now the destination box has gcc-3.4.3.tar
 Did you want it automatically bzip2 compressed?
 Then issue:
 
-$ sd3  gcc-3.4.1.tar.bz2  gcc-3.4.1-gcc-3.4.3.sd3.7z  gcc-3.4.3.tar.bz2
+$ sdelta3c  gcc-3.4.1.tar.bz2  gcc-3.4.1-gcc-3.4.3.sd3.7z  gcc-3.4.3.tar.bz2
 
 Filename extentions can be matched automatically.
 The first two file parameters may be complete or partial filenames.
